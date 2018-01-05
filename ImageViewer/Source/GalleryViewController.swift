@@ -639,7 +639,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
         })
     }
 
-    public func itemControllerWillAppear(_ controller: ItemController) {
+    open func itemControllerWillAppear(_ controller: ItemController) {
 
         if let videoController = controller as? VideoViewController {
 
@@ -647,7 +647,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
         }
     }
 
-    public func itemControllerWillDisappear(_ controller: ItemController) {
+    open func itemControllerWillDisappear(_ controller: ItemController) {
 
         if let _ = controller as? VideoViewController {
 
@@ -660,7 +660,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
         }
     }
 
-    public func itemControllerDidAppear(_ controller: ItemController) {
+    open func itemControllerDidAppear(_ controller: ItemController) {
 
         self.currentIndex = controller.index
         self.landedPageAtIndexCompletion?(self.currentIndex)
@@ -702,7 +702,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
         }
     }
 
-    public func itemController(_ controller: ItemController, didSwipeToDismissWithDistanceToEdge distance: CGFloat) {
+    open func itemController(_ controller: ItemController, didSwipeToDismissWithDistanceToEdge distance: CGFloat) {
 
         if decorationViewsHidden == false {
 
@@ -724,7 +724,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
         self.overlayView.colorView.alpha = 1 - distance
     }
 
-    public func itemControllerDidFinishSwipeToDismissSuccessfully() {
+    open func itemControllerDidFinishSwipeToDismissSuccessfully() {
 
         self.swipedToDismissCompletion?()
         self.overlayView.removeFromSuperview()
