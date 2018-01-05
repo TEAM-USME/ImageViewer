@@ -53,6 +53,8 @@ public enum GalleryConfigurationItem {
 
     /// Layout behaviour for optional footer view.
     case footerViewLayout(FooterLayout)
+    
+    case rightButtonLayout(ButtonLayout)
 
     /// Sets the status bar visible/invisible while gallery is presented.
     case statusBarHidden(Bool)

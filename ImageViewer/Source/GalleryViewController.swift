@@ -17,6 +17,9 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
     open var headerView: UIView?
     /// A custom view at the bottom of the gallery with layout using default (or custom) pinning settings for footer.
     open var footerView: UIView?
+    
+    open var rightButton: UIButton?
+    
     fileprivate var closeButton: UIButton? = UIButton.closeButton()
     fileprivate var seeAllCloseButton: UIButton? = nil
     fileprivate var thumbnailsButton: UIButton? = UIButton.thumbnailsButton()
@@ -43,6 +46,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
     fileprivate var galleryPagingMode = GalleryPagingMode.standard
     fileprivate var headerLayout = HeaderLayout.center(25)
     fileprivate var footerLayout = FooterLayout.center(25)
+    fileprivate var rightButtonLayout = ButtonLayout.pinRight(8, 16)
     fileprivate var closeLayout = ButtonLayout.pinRight(8, 16)
     fileprivate var seeAllCloseLayout = ButtonLayout.pinRight(8, 16)
     fileprivate var thumbnailsLayout = ButtonLayout.pinLeft(8, 16)
@@ -85,6 +89,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
             case .pagingMode(let mode):                         galleryPagingMode = mode
             case .headerViewLayout(let layout):                 headerLayout = layout
             case .footerViewLayout(let layout):                 footerLayout = layout
+            case .rightButtonLayout(let layout):                rightButtonLayout = layout
             case .closeLayout(let layout):                      closeLayout = layout
             case .deleteLayout(let layout):                     deleteLayout = layout
             case .thumbnailsLayout(let layout):                 thumbnailsLayout = layout
@@ -212,6 +217,14 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
             self.view.addSubview(footer)
         }
     }
+    
+    fileprivate func configureRightButton() {
+        
+        if let rightButton = rightButton {
+            rightButton.alpha = 0
+            self.view.addSubview(rightButton)
+        }
+    }
 
     fileprivate func configureCloseButton() {
 
@@ -257,6 +270,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
 
         configureHeaderView()
         configureFooterView()
+        configureRightButton()
         configureCloseButton()
         configureThumbnailsButton()
         configureDeleteButton()
@@ -318,6 +332,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
 
         overlayView.frame = view.bounds.insetBy(dx: -UIScreen.main.bounds.width * 2, dy: -UIScreen.main.bounds.height * 2)
 
+        layoutButton(rightButton, layout: rightButtonLayout)
         layoutButton(closeButton, layout: closeLayout)
         layoutButton(thumbnailsButton, layout: thumbnailsLayout)
         layoutButton(deleteButton, layout: deleteLayout)
@@ -609,6 +624,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
 
             self?.headerView?.alpha = targetAlpha
             self?.footerView?.alpha = targetAlpha
+            self?.rightButton?.alpha = targetAlpha
             self?.closeButton?.alpha = targetAlpha
             self?.thumbnailsButton?.alpha = targetAlpha
             self?.deleteButton?.alpha = targetAlpha
@@ -697,6 +713,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
             deleteButton?.alpha = alpha
             headerView?.alpha = alpha
             footerView?.alpha = alpha
+            rightButton?.alpha = alpha
 
             if controller is VideoViewController {
                 scrubber.alpha = alpha
